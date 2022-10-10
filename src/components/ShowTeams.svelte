@@ -3,7 +3,7 @@
   import gsap from "gsap";
   import BTN from "./button.svelte";
   import { afterUpdate } from "svelte";
-  // import Clipboard from "svelte-clipboard";
+ 
 
   let TeamA = [];
   let TeamB = [];
@@ -142,13 +142,11 @@
     flex-wrap: wrap;
     width: 80%;
     margin: 3rem auto;
-    /* background-color: yellow; */
   }
   .Card {
-    width: 20%;
+    width: 25%;
     height: 40rem;
     text-align: start;
-    /* border: 3px solid black; */
     padding: 2rem;
   }
   h2 {
@@ -172,7 +170,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: blue; */
     height: 70vh;
   }
   img {
@@ -183,7 +180,7 @@
       margin: 1rem auto;
     }
     .Card {
-      width: 40%;
+      width: 45%;
     }
   }
 </style>
