@@ -2,7 +2,7 @@
 </script>
 
 <div class="nav">
-  <img src="/sundayballLogo.png" alt="Sunday ball Logo" />
+  <img src="/sundayballLogo.svg" alt="Sunday ball Logo" />
 </div>
 
 <style>

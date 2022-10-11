@@ -28,10 +28,6 @@
 </script>
 
 <div class="teamGen">
-  <!-- <p>We have {playerCount} players out of 24</p> -->
-  <!-- <div>
-    <BTN data={`${playerCount}/24`} />
-  </div> -->
   {#if playerCount < 24}
     <p>You know what to do</p>
     <div class="inputForm">
@@ -40,8 +36,9 @@
           type="text"
           bind:value={playerName}
           placeholder="Enter Player Name"
+          required
         />
-        <select name="position" id="" bind:value={playerPosition}>
+        <select name="position" id="" bind:value={playerPosition} required>
           <option value="">--Choose player position--</option>
           <option value="F">Foward</option>
           <option value="M">Midfielder</option>

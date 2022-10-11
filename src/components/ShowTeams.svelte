@@ -49,7 +49,6 @@
   };
 
   const copyTeam = () => {
-    console.log("team");
     const content = document.getElementById("team").textContent;
     navigator.clipboard.writeText(content);
   };
