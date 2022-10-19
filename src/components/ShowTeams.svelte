@@ -139,7 +139,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    width: 80%;
+    width: 90%;
     margin: 3rem auto;
   }
   .Card {
@@ -179,7 +179,8 @@
       margin: 1rem auto;
     }
     .Card {
-      width: 45%;
+      width: 50%;
+      height: 45rem;
     }
   }
 </style>
