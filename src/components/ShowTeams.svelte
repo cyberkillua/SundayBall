@@ -3,7 +3,6 @@
   import gsap from "gsap";
   import BTN from "./button.svelte";
   import { afterUpdate } from "svelte";
- 
 
   let TeamA = [];
   let TeamB = [];
@@ -51,6 +50,69 @@
   const copyTeam = () => {
     const content = document.getElementById("team").textContent;
     navigator.clipboard.writeText(content);
+  };
+
+  const refresh = () => {
+    TeamA = [];
+    TeamB = [];
+    TeamC = [];
+    TeamD = [];
+    loading = true;
+    loading = loading;
+
+    setTimeout(() => {
+      let sortedByPosition = $playerDataStore.sort((a, b) =>
+        b.playerPosition.localeCompare(a.playerPosition)
+      );
+
+      let forwards = sortedByPosition.filter(
+        (player) => player.playerPosition === "F"
+      );
+
+      let Mid = sortedByPosition.filter(
+        (player) => player.playerPosition === "M"
+      );
+
+      let def = sortedByPosition.filter(
+        (player) => player.playerPosition === "D"
+      );
+
+      const shuffle = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      };
+
+      forwards = shuffle(forwards);
+      Mid = shuffle(Mid);
+      def = shuffle(def);
+
+      const finalPlayers = forwards.concat(Mid, def);
+
+      // console.log(shuffle(sortedByPosition));
+      let counter = 0;
+      for (let i = 0; i < finalPlayers.length; i++) {
+        const currentPlayer = finalPlayers[i];
+        if (shouldPushToTeamA(TeamA.length, counter)) {
+          TeamA.push(currentPlayer);
+          counter++;
+        } else if (shouldPushToTeamB(TeamB.length, counter)) {
+          TeamB.push(currentPlayer);
+          counter++;
+        } else if (shouldPushToTeamC(TeamC.length, counter)) {
+          TeamC.push(currentPlayer);
+          counter++;
+        } else {
+          TeamD.push(currentPlayer);
+          //reset counter to start sharing players from Team A again
+          counter = 0;
+        }
+      }
+      loading = false;
+      showTeam = true;
+    }, 3000);
   };
 
   const shouldPushToTeamA = (length, counter) => {
@@ -110,6 +172,10 @@
 
       <button on:click|preventDefault={copyTeam} class="underline"
         >Copy Teams.</button
+      >
+
+      <button on:click|preventDefault={refresh} class="underline"
+        >Refresh Teams.</button
       >
     {/if}
   {:else if loading === true}
