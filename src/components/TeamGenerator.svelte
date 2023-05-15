@@ -6,11 +6,13 @@
   let playerName = "";
   let playerPosition = "";
   let showCount = false;
+  let quality = "";
   const handleSubmit = () => {
     const playerData = {
       id: uuidv4(),
       playerName,
       playerPosition,
+      quality,
     };
     playerDataStore.update((currentPlayer) => {
       return [playerData, ...currentPlayer];
@@ -18,6 +20,7 @@
     playerName = "";
     playerPosition = "";
     showCount = true;
+    quality = "";
 
     setTimeout(() => {
       showCount = false;
@@ -29,7 +32,7 @@
 
 <div class="teamGen">
   {#if playerCount < 24}
-    <p>You know what to do</p>
+    <p>Please Make Sure you have 8 players in each level</p>
     <div class="inputForm">
       <form on:submit|preventDefault={handleSubmit}>
         <input
@@ -43,6 +46,13 @@
           <option value="F">Foward</option>
           <option value="M">Midfielder</option>
           <option value="D">Defender</option>
+        </select>
+
+        <select name="level" id="" bind:value={quality} required>
+          <option value="">--Choose player level--</option>
+          <option value="A">Elite</option>
+          <option value="B">Good</option>
+          <option value="C">Average</option>
         </select>
         {#if showCount === false}
           <div class="btn-container">

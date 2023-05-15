@@ -20,9 +20,24 @@
     loading = loading;
 
     setTimeout(() => {
-      const sortedByPosition = $playerDataStore.sort((a, b) =>
+      const players = $playerDataStore;
+      let qualityA = players.filter((player) => player.quality === "A");
+      let qualityB = players.filter((player) => player.quality === "B");
+      let qualityC = players.filter((player) => player.quality === "C");
+
+      qualityA = qualityA.sort((a, b) =>
         b.playerPosition.localeCompare(a.playerPosition)
       );
+      qualityB = qualityB.sort((a, b) =>
+        b.playerPosition.localeCompare(a.playerPosition)
+      );
+      qualityC = qualityC.sort((a, b) =>
+        b.playerPosition.localeCompare(a.playerPosition)
+      );
+
+      const sortedByPosition = [...qualityA, ...qualityB, ...qualityC];
+
+      console.log(sortedByPosition);
 
       let counter = 0;
       for (let i = 0; i < sortedByPosition.length; i++) {
@@ -42,6 +57,7 @@
           counter = 0;
         }
       }
+
       loading = false;
       showTeam = true;
     }, 3000);
@@ -59,22 +75,20 @@
     TeamD = [];
     loading = true;
     loading = loading;
-
     setTimeout(() => {
-      let sortedByPosition = $playerDataStore.sort((a, b) =>
+      const players = $playerDataStore;
+      let qualityA = players.filter((player) => player.quality === "A");
+      let qualityB = players.filter((player) => player.quality === "B");
+      let qualityC = players.filter((player) => player.quality === "C");
+
+      qualityA = qualityA.sort((a, b) =>
         b.playerPosition.localeCompare(a.playerPosition)
       );
-
-      let forwards = sortedByPosition.filter(
-        (player) => player.playerPosition === "F"
+      qualityB = qualityB.sort((a, b) =>
+        b.playerPosition.localeCompare(a.playerPosition)
       );
-
-      let Mid = sortedByPosition.filter(
-        (player) => player.playerPosition === "M"
-      );
-
-      let def = sortedByPosition.filter(
-        (player) => player.playerPosition === "D"
+      qualityC = qualityC.sort((a, b) =>
+        b.playerPosition.localeCompare(a.playerPosition)
       );
 
       const shuffle = (array) => {
@@ -84,13 +98,10 @@
         }
         return array;
       };
-
-      forwards = shuffle(forwards);
-      Mid = shuffle(Mid);
-      def = shuffle(def);
-
-      const finalPlayers = forwards.concat(Mid, def);
-
+      qualityA = shuffle(qualityA);
+      qualityB = shuffle(qualityB);
+      qualityC = shuffle(qualityC);
+      const finalPlayers = qualityA.concat(qualityB, qualityC);
       // console.log(shuffle(sortedByPosition));
       let counter = 0;
       for (let i = 0; i < finalPlayers.length; i++) {
