@@ -40,7 +40,7 @@
 
 <div class="teamGen">
   {#if playerCount < totalPlayers}
-    <p>Please Make Sure you have 8 players in each level</p>
+    <p>Players will be sorted into teams by position and level</p>
     <div class="inputForm">
       <form on:submit|preventDefault={handleSubmit}>
         <input
