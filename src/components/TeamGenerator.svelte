@@ -1,8 +1,14 @@
 <script>
   import { v4 as uuidv4 } from "uuid";
-  import { playerDataStore } from "../stores";
+  import { playerDataStore, teamDataStore } from "../stores";
   import ShowTeams from "./ShowTeams.svelte";
   import BTN from "./button.svelte";
+
+  export let numberOfPlayers;
+  export let numberOfTeams;
+
+  console.log(numberOfPlayers, numberOfTeams);
+
   let playerName = "";
   let playerPosition = "";
   let showCount = false;
@@ -28,10 +34,12 @@
     }, 1000);
   };
   $: playerCount = $playerDataStore.length;
+
+  const totalPlayers = numberOfPlayers * numberOfTeams;
 </script>
 
 <div class="teamGen">
-  {#if playerCount < 24}
+  {#if playerCount < totalPlayers}
     <p>Please Make Sure you have 8 players in each level</p>
     <div class="inputForm">
       <form on:submit|preventDefault={handleSubmit}>
@@ -60,13 +68,13 @@
           </div>
         {:else}
           <div class="btn-container">
-            <BTN data={`${playerCount}/24`} disabledState={true} />
+            <BTN data={`${playerCount}/${totalPlayers}`} disabledState={true} />
           </div>
         {/if}
       </form>
     </div>
   {:else}
-    <ShowTeams />
+    <ShowTeams {numberOfPlayers} {numberOfTeams} />
   {/if}
 </div>
 

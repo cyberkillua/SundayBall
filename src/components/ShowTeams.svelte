@@ -3,11 +3,12 @@
   import gsap from "gsap";
   import BTN from "./button.svelte";
   import { afterUpdate } from "svelte";
+  import { chunkArray } from "../utils/chunkArray";
 
-  let TeamA = [];
-  let TeamB = [];
-  let TeamC = [];
-  let TeamD = [];
+  export let numberOfPlayers;
+  export let numberOfTeams;
+
+  let bigTeam = [];
   let showTeam = false;
   let loading = false;
 
@@ -39,24 +40,27 @@
 
       console.log(sortedByPosition);
 
-      let counter = 0;
-      for (let i = 0; i < sortedByPosition.length; i++) {
-        const currentPlayer = sortedByPosition[i];
-        if (shouldPushToTeamA(TeamA.length, counter)) {
-          TeamA.push(currentPlayer);
-          counter++;
-        } else if (shouldPushToTeamB(TeamB.length, counter)) {
-          TeamB.push(currentPlayer);
-          counter++;
-        } else if (shouldPushToTeamC(TeamC.length, counter)) {
-          TeamC.push(currentPlayer);
-          counter++;
-        } else {
-          TeamD.push(currentPlayer);
-          //reset counter to start sharing players from Team A again
-          counter = 0;
-        }
-      }
+      bigTeam = chunkArray(sortedByPosition, numberOfTeams);
+
+      // let counter = 0;
+      // for (let i = 0; i < sortedByPosition.length; i++) {
+      //   const currentPlayer = sortedByPosition[i];
+      //   bigTeam.push(currentPlayer);
+      //   // if (shouldPushToTeamA(TeamA.length, counter)) {
+      //   //   TeamA.push(currentPlayer);
+      //   //   counter++;
+      //   // } else if (shouldPushToTeamB(TeamB.length, counter)) {
+      //   //   TeamB.push(currentPlayer);
+      //   //   counter++;
+      //   // } else if (shouldPushToTeamC(TeamC.length, counter)) {
+      //   //   TeamC.push(currentPlayer);
+      //   //   counter++;
+      //   // } else {
+      //   //   TeamD.push(currentPlayer);
+      //   //   //reset counter to start sharing players from Team A again
+      //   //   counter = 0;
+      //   // }
+      // }
 
       loading = false;
       showTeam = true;
@@ -69,10 +73,6 @@
   };
 
   const refresh = () => {
-    TeamA = [];
-    TeamB = [];
-    TeamC = [];
-    TeamD = [];
     loading = true;
     loading = loading;
     setTimeout(() => {
@@ -102,39 +102,42 @@
       qualityB = shuffle(qualityB);
       qualityC = shuffle(qualityC);
       const finalPlayers = qualityA.concat(qualityB, qualityC);
+      bigTeam = chunkArray(finalPlayers, numberOfTeams);
+
       // console.log(shuffle(sortedByPosition));
-      let counter = 0;
-      for (let i = 0; i < finalPlayers.length; i++) {
-        const currentPlayer = finalPlayers[i];
-        if (shouldPushToTeamA(TeamA.length, counter)) {
-          TeamA.push(currentPlayer);
-          counter++;
-        } else if (shouldPushToTeamB(TeamB.length, counter)) {
-          TeamB.push(currentPlayer);
-          counter++;
-        } else if (shouldPushToTeamC(TeamC.length, counter)) {
-          TeamC.push(currentPlayer);
-          counter++;
-        } else {
-          TeamD.push(currentPlayer);
-          //reset counter to start sharing players from Team A again
-          counter = 0;
-        }
-      }
+      // let counter = 0;
+      // for (let i = 0; i < finalPlayers.length; i++) {
+      //   const currentPlayer = finalPlayers[i];
+      //   bigTeam.push(currentPlayer);
+      //   // if (shouldPushToTeamA(TeamA.length, counter)) {
+      //   //   TeamA.push(currentPlayer);
+      //   //   counter++;
+      //   // } else if (shouldPushToTeamB(TeamB.length, counter)) {
+      //   //   TeamB.push(currentPlayer);
+      //   //   counter++;
+      //   // } else if (shouldPushToTeamC(TeamC.length, counter)) {
+      //   //   TeamC.push(currentPlayer);
+      //   //   counter++;
+      //   // } else {
+      //   //   TeamD.push(currentPlayer);
+      //   //   //reset counter to start sharing players from Team A again
+      //   //   counter = 0;
+      //   // }
+      // }
       loading = false;
       showTeam = true;
     }, 3000);
   };
 
-  const shouldPushToTeamA = (length, counter) => {
-    return length < 6 && counter === 0;
-  };
-  const shouldPushToTeamB = (length, counter) => {
-    return length < 6 && counter === 1;
-  };
-  const shouldPushToTeamC = (length, counter) => {
-    return length < 6 && counter === 2;
-  };
+  // const shouldPushToTeamA = (length, counter) => {
+  //   return length < 6 && counter === 0;
+  // };
+  // const shouldPushToTeamB = (length, counter) => {
+  //   return length < 6 && counter === 1;
+  // };
+  // const shouldPushToTeamC = (length, counter) => {
+  //   return length < 6 && counter === 2;
+  // };
 </script>
 
 <div class="lineupContainer">
@@ -146,39 +149,34 @@
 
     {#if showTeam}
       <div class="card-container" id="team">
-        <div class="Card">
-          <h2>Team A</h2>
-          {#each TeamA as player (player.id)}
-            <p>
-              <span class="player-position">{player.playerPosition}</span>
-              {player.playerName}
-            </p>
-          {/each}
-        </div>
-        <div class="Card">
-          <h2>Team B</h2>
-          {#each TeamB as player (player.id)}
-            <p>
-              <span class="player-position">{player.playerPosition}</span>
-              {player.playerName}
-            </p>{/each}
-        </div>
-        <div class="Card">
-          <h2>Team C</h2>
-          {#each TeamC as player (player.id)}
-            <p>
-              <span class="player-position">{player.playerPosition}</span>
-              {player.playerName}
-            </p>{/each}
-        </div>
-        <div class="Card">
-          <h2>Team D</h2>
-          {#each TeamD as player (player.id)}
-            <p>
-              <span class="player-position">{player.playerPosition}</span>
-              {player.playerName}
-            </p>{/each}
-        </div>
+        {#each bigTeam as team, index (index)}
+          <div class="Card">
+            <h2>Team {index + 1}</h2>
+            {#each team as player (player.id)}
+              <p>
+                {player.playerName.toUpperCase()}
+                <span class="player-level">
+                  {player.quality === "A"
+                    ? "Elite"
+                    : player.quality === "B"
+                      ? "Good"
+                      : player.quality === "C"
+                        ? "Average"
+                        : "Low"}
+                </span>
+                <span class="player-position"
+                  >{player.playerPosition === "F"
+                    ? "Foward"
+                    : player.playerPosition === "M"
+                      ? "Midfielder"
+                      : player.playerPosition === "D"
+                        ? "Defender"
+                        : "Low"}</span
+                >
+              </p>
+            {/each}
+          </div>
+        {/each}
       </div>
 
       <button on:click|preventDefault={copyTeam} class="underline"
@@ -236,10 +234,12 @@
     line-height: 29px;
     color: #1f1d1d;
     margin: 1rem 0;
+    font-size: 1.8rem;
   }
   .player-position {
     color: #b3b3b3;
     margin-right: 1.5rem;
+    font-size: 1.2rem;
   }
   .loading-container {
     display: flex;
@@ -250,6 +250,10 @@
   }
   img {
     height: 6rem;
+  }
+  .player-level {
+    color: red;
+    font-size: 1.2rem;
   }
   @media (max-width: 49em) {
     .lineupContainer {
