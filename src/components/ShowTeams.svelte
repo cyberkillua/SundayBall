@@ -214,6 +214,8 @@
     .Card {
       width: 50%;
       margin-bottom: 2.5rem;
+      margin-top: 0;
+      background-color: tomato;
       /* height: 45rem; */
     }
   }
