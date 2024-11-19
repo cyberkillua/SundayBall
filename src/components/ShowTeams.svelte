@@ -213,7 +213,8 @@
     }
     .Card {
       width: 50%;
-      height: 45rem;
+      margin-bottom: 2.5rem;
+      /* height: 45rem; */
     }
   }
 </style>

@@ -93,7 +93,7 @@ export const playerDataStore = writable([
   },
   {
     id: 16,
-    playerName: "jazzman12345677",
+    playerName: "jazzman",
     playerPosition: "D",
     quality: "B",
   },
