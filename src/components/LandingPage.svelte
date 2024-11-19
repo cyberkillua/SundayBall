@@ -8,7 +8,6 @@
   let showTeamGen = false;
 
   const handleSubmit = () => {
-    console.log(numberOfPlayers, numberOfTeams);
     showTeamGen = true;
   };
 </script>

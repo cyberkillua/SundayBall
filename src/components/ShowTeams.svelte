@@ -38,29 +38,7 @@
 
       const sortedByPosition = [...qualityA, ...qualityB, ...qualityC];
 
-      console.log(sortedByPosition);
-
       bigTeam = chunkArray(sortedByPosition, numberOfTeams);
-
-      // let counter = 0;
-      // for (let i = 0; i < sortedByPosition.length; i++) {
-      //   const currentPlayer = sortedByPosition[i];
-      //   bigTeam.push(currentPlayer);
-      //   // if (shouldPushToTeamA(TeamA.length, counter)) {
-      //   //   TeamA.push(currentPlayer);
-      //   //   counter++;
-      //   // } else if (shouldPushToTeamB(TeamB.length, counter)) {
-      //   //   TeamB.push(currentPlayer);
-      //   //   counter++;
-      //   // } else if (shouldPushToTeamC(TeamC.length, counter)) {
-      //   //   TeamC.push(currentPlayer);
-      //   //   counter++;
-      //   // } else {
-      //   //   TeamD.push(currentPlayer);
-      //   //   //reset counter to start sharing players from Team A again
-      //   //   counter = 0;
-      //   // }
-      // }
 
       loading = false;
       showTeam = true;
@@ -104,40 +82,10 @@
       const finalPlayers = qualityA.concat(qualityB, qualityC);
       bigTeam = chunkArray(finalPlayers, numberOfTeams);
 
-      // console.log(shuffle(sortedByPosition));
-      // let counter = 0;
-      // for (let i = 0; i < finalPlayers.length; i++) {
-      //   const currentPlayer = finalPlayers[i];
-      //   bigTeam.push(currentPlayer);
-      //   // if (shouldPushToTeamA(TeamA.length, counter)) {
-      //   //   TeamA.push(currentPlayer);
-      //   //   counter++;
-      //   // } else if (shouldPushToTeamB(TeamB.length, counter)) {
-      //   //   TeamB.push(currentPlayer);
-      //   //   counter++;
-      //   // } else if (shouldPushToTeamC(TeamC.length, counter)) {
-      //   //   TeamC.push(currentPlayer);
-      //   //   counter++;
-      //   // } else {
-      //   //   TeamD.push(currentPlayer);
-      //   //   //reset counter to start sharing players from Team A again
-      //   //   counter = 0;
-      //   // }
-      // }
       loading = false;
       showTeam = true;
     }, 3000);
   };
-
-  // const shouldPushToTeamA = (length, counter) => {
-  //   return length < 6 && counter === 0;
-  // };
-  // const shouldPushToTeamB = (length, counter) => {
-  //   return length < 6 && counter === 1;
-  // };
-  // const shouldPushToTeamC = (length, counter) => {
-  //   return length < 6 && counter === 2;
-  // };
 </script>
 
 <div class="lineupContainer">
@@ -257,6 +205,10 @@
   }
   @media (max-width: 49em) {
     .lineupContainer {
+      margin: 1rem auto;
+    }
+    .card-container {
+      width: 100%;
       margin: 1rem auto;
     }
     .Card {

@@ -1,3 +1,10 @@
+/**
+ * 
+ * @param {*} arr
+ * @param {*} numBuckets 
+ * @returns 
+ */
+
 export function chunkArray(arr, numBuckets) {
   const buckets = Array.from({ length: numBuckets }, () => []);
 

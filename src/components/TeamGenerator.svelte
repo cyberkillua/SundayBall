@@ -7,8 +7,6 @@
   export let numberOfPlayers;
   export let numberOfTeams;
 
-  console.log(numberOfPlayers, numberOfTeams);
-
   let playerName = "";
   let playerPosition = "";
   let showCount = false;
