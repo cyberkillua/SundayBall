@@ -213,10 +213,13 @@
     }
     .Card {
       width: 50%;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       margin-top: 0;
       background-color: tomato;
-      /* height: 45rem; */
+      height: auto;
+    }
+    p {
+      margin: 0 0;
     }
   }
 </style>
